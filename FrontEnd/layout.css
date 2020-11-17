@@ -1,0 +1,39 @@
+.header-container{
+    display:grid;
+    justify-content: center;
+}
+
+.movie-info-container{
+    display:flex;
+    justify-content: space-evenly;
+}
+
+.search-results-container{
+    display:flex;
+    justify-content: space-evenly;
+}
+
+.ratings-title{
+    display: flex;
+    justify-content: center;
+}
+.results-title{
+    display:flex;
+    justify-content: center;
+}
+
+.title-container{
+    display:grid;
+    justify-content: center;
+}
+
+.thumbs-container{
+    display:flex;
+    justify-content: center;
+}
+
+.your-ratings-container{
+    display: grid;
+    justify-content: center;
+}
+

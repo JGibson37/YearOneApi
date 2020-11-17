@@ -3,18 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./layout.css" />
     <title>Year One Movie API</title>
 </head>
 <body>
-    <h1>Welcome to the Movie Search</h1>
-    <div> Search Box</div>
-    <br>
-    <h2>Title</h2>
-    <div class="results-title">SpiderMan</div>
-    <h2>Director</h2>
-    <div class="results-director"> Sam Raimi</div>
-    <h2>Description</h2>
-    <div class="results-description"> Generation defining movie</div>
-    <button>Thumbs Up</button> <button>Thumbs Down</button>    
+    <container class="header-container">
+        <h1 class="webpage-title">Welcome to the Movie Search</h1>
+        <form>Search for Movie</form>
+        <button>Enter</button>
+    </container>
+    <container class="search-results-container">
+        <div> Spiderman </div>
+        <div> Spiderman 2</div>
+        <div> Spiderman 3</div>
+    </container>
+    <container class="title-container">
+        <h2 class="results-title">SpiderMan</h2>
+        <container class="thumbs-container">
+            <button>Thumbs Up: 0</button>
+            <button>Thumbs Down: 0</button>
+        </container>
+    </container>
+    <container class="movie-info-container">
+        <container class="director-container">
+            <h2>Director</h2>
+            <div class="results-director"> Sam Raimi</div>
+        </container>
+        <container class="description-container">
+            <h2>Description</h2>
+            <div class="results-description"> Generation defining movie</div>
+        </container>
+    </container>
+    <container class="your-ratings-container">
+        <H3 class="ratings-title">Your ratings so far:</H3>
+        <h2 class="results-title">SpiderMan</h2>
+        <container class="thumbs-container">
+            <button>Thumbs Up: 0</button>
+            <button>Thumbs Down: 0</button>
+        </container>
+    </container>
 </body>
 </html>
