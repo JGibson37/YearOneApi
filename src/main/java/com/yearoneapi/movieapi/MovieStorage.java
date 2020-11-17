@@ -2,6 +2,8 @@ package com.yearoneapi.movieapi;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+
 @Service
 public class MovieStorage {
 
@@ -15,8 +17,8 @@ public class MovieStorage {
         return movieRepo.save(movie);
     }
 
-    public Iterable<Movie> retrieveAllMovies(){
-        return movieRepo.findAll();
+    public Collection<Movie> retrieveAllMovies(){
+        return (Collection<Movie>) movieRepo.findAll();
     }
 
     public Movie retrieveMovieById(Long id){
