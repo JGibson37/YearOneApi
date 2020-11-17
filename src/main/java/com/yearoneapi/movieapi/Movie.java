@@ -13,10 +13,10 @@ public class Movie {
     private String title;
     private String director;
     private String description;
-    private int thumbsUp;
-    private int thumbsDown;
+    private String thumbsUp;
+    private String thumbsDown;
 
-    public Movie(String title, String director, String description, int thumbsUp, int thumbsDown) {
+    public Movie(String title, String director, String description, String thumbsUp, String thumbsDown) {
         this.title = title;
         this.director = director;
         this.description = description;
@@ -38,11 +38,12 @@ public class Movie {
         return description;
     }
 
-    public int getThumbsUp() {
+    public String getThumbsUp() {
         return thumbsUp;
     }
 
-    public int getThumbsDown() {
+    public String getThumbsDown() {
         return thumbsDown;
     }
+
 }

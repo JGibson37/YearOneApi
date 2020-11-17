@@ -1,8 +1,6 @@
 package com.yearoneapi.movieapi;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -23,5 +21,10 @@ public class MovieController {
     @GetMapping("api/movies/{id}")
     public Movie returnMovieById(@PathVariable long id){
         return movieStorage.retrieveMovieById(id);
+    }
+
+    @PostMapping("/api/movies/add/")
+    public Movie addMovie(@RequestBody Movie movie){
+        return movieStorage.save(movie);
     }
 }

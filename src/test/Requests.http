@@ -1,1 +1,12 @@
 GET http://localhost:8080/api/movies/
+###
+POST http://localhost:8080/api/movies/add/
+Content-Type: application/json
+
+{
+"title": "Movie Title",
+"director": "Movie Director",
+"description": "Movie description",
+"thumbsUp": "1",
+"thumbsDown": "3"
+}
