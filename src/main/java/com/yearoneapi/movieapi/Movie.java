@@ -1,13 +1,21 @@
 package com.yearoneapi.movieapi;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Movie {
 
+    @Id
+    @GeneratedValue
+    private long id;
     private String title;
     private String director;
     private String description;
     private int thumbsUp;
     private int thumbsDown;
-
+    
     public Movie(String title, String director, String description, int thumbsUp, int thumbsDown) {
         this.title = title;
         this.director = director;
@@ -15,6 +23,9 @@ public class Movie {
         this.thumbsUp = thumbsUp;
         this.thumbsDown = thumbsDown;
     }
+
+    protected Movie(){};
+
     public String getTitle() {
         return title;
     }
