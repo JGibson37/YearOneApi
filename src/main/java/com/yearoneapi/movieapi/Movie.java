@@ -15,7 +15,7 @@ public class Movie {
     private String description;
     private int thumbsUp;
     private int thumbsDown;
-    
+
     public Movie(String title, String director, String description, int thumbsUp, int thumbsDown) {
         this.title = title;
         this.director = director;
