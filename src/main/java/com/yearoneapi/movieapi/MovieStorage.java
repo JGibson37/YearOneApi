@@ -10,4 +10,16 @@ public class MovieStorage {
     public MovieStorage(MovieRepository movieRepo) {
         this.movieRepo = movieRepo;
     }
+
+    public Movie save(Movie movie) {
+        return movieRepo.save(movie);
+    }
+
+    public Iterable<Movie> retrieveAllMovies(){
+        return movieRepo.findAll();
+    }
+
+    public Movie retrieveMovieById(Long id){
+        return movieRepo.findById(id).get();
+    }
 }
