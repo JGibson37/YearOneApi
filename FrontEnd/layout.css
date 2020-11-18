@@ -1,6 +1,16 @@
 .director-container{
-    display:flex;
+    display:grid;
     justify-content: center;
+    align-content: center;
+}
+
+.description-container {
+    display:grid;
+    grid-template-rows: 100px 1fr;
+}
+
+.description-header {
+    
 }
 .header-container{
     display:grid;
@@ -9,8 +19,7 @@
 }
 
 .movie-info-container{
-    display:flex;
-    justify-content: space-evenly;
+
 }
 
 .search-title-movie-container{
@@ -35,7 +44,7 @@
 .title-container{
     display:grid;
     justify-content: center;
-    grid-template-rows: 50px 50px 50px;
+    grid-template-rows: 100px 50px 100px;
 }
 
 .thumbs-container{
