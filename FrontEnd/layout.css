@@ -9,26 +9,16 @@
     grid-template-rows: 100px 1fr;
 }
 
-.description-header {
-
-}
 .header-container{
     display:grid;
     justify-content: center;
     margin:10px;
 }
 
-.movie-info-container{
-
-}
-
 .search-title-movie-container{
     display:grid;
     grid-template-columns: 200px 1fr 1fr;
     height:500px;
-}
-.search-results-container{
-
 }
 
 .ratings-title{
