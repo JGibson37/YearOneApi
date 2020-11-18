@@ -1,6 +1,11 @@
+.director-container{
+    display:flex;
+    justify-content: center;
+}
 .header-container{
     display:grid;
     justify-content: center;
+    margin:10px;
 }
 
 .movie-info-container{
@@ -8,15 +13,20 @@
     justify-content: space-evenly;
 }
 
+.search-title-movie-container{
+    display:grid;
+    grid-template-columns: 200px 1fr 1fr;
+    height:500px;
+}
 .search-results-container{
-    display:flex;
-    justify-content: space-evenly;
+
 }
 
 .ratings-title{
     display: flex;
     justify-content: center;
 }
+
 .results-title{
     display:flex;
     justify-content: center;
@@ -25,6 +35,7 @@
 .title-container{
     display:grid;
     justify-content: center;
+    grid-template-rows: 50px 50px 50px;
 }
 
 .thumbs-container{
@@ -36,4 +47,3 @@
     display: grid;
     justify-content: center;
 }
-
