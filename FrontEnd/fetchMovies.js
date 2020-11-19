@@ -22,3 +22,13 @@ fetch(
     console.error(err);
   });
 }
+
+const postMovieToLocal = (movie) => {
+return fetch("http://localhost:8080/api/movies/add/", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(movie),
+  }).then((response) => response.json());
+};
