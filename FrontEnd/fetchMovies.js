@@ -1,3 +1,4 @@
+export {fetchMovieFromLocal, fetchMovieFromRemote, postMovieToLocal}
 
 const fetchMovieFromLocal = () => {
 fetch("http://localhost:8080/api/movies/")

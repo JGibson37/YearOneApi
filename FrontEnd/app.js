@@ -1,8 +1,12 @@
-import {fetchMoviesFromApi} from "./fetchMovies.js"
+import {createHeader} from "./renderHeader.js"
+import {fetchMovieFromLocal} from "./fetchMovies.js"
 
-fetchMovieFromApi()
-    .then(movie => renderPage(movie))
 
-const renderPage = (movie) => {
-    
+const renderPage = () => {
+    const container = document.querySelector('.all-container');
+    container.append(createHeader())
 }
+
+renderPage()
+
+export {renderPage}
