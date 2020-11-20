@@ -34,5 +34,45 @@ const createFooter = () => {
     thumbsContainer.append(thumbsUpButton)
     thumbsContainer.append(thumbsDownButton)
 
+    const yourRatings2 = document.createElement("container")
+    yourRatings2.classList.add('your-ratings-2')
+    recentRatingsContainer.append(yourRatings2)
+
+    const resultsTitleH22 = document.createElement("h2")
+    resultsTitleH22.classList.add('results-title')
+    resultsTitleH22.innerHTML='Spiderman'
+    yourRatings2.append(resultsTitleH22)
+
+    const thumbsContainer2 = document.createElement("container")
+    thumbsContainer2.classList.add('thumbs-container')
+    yourRatings2.append(thumbsContainer2)
+
+    const thumbsUpButton2 = document.createElement("button")
+    const thumbsDownButton2 = document.createElement("button")
+    thumbsUpButton2.innerHTML='Thumbs Up: 0'
+    thumbsDownButton2.innerHTML='Thumbs Down: 0'
+    thumbsContainer2.append(thumbsUpButton2)
+    thumbsContainer2.append(thumbsDownButton2)
+
+    const yourRatings3 = document.createElement("container")
+    yourRatings3.classList.add('your-ratings-3')
+    recentRatingsContainer.append(yourRatings3)
+
+    const resultsTitleH222 = document.createElement("h2")
+    resultsTitleH222.classList.add('results-title')
+    resultsTitleH222.innerHTML='Spiderman'
+    yourRatings3.append(resultsTitleH222)
+
+    const thumbsContainer3 = document.createElement("container")
+    thumbsContainer3.classList.add('thumbs-container')
+    yourRatings3.append(thumbsContainer3)
+
+    const thumbsUpButton3 = document.createElement("button")
+    const thumbsDownButton3 = document.createElement("button")
+    thumbsUpButton3.innerHTML='Thumbs Up: 0'
+    thumbsDownButton3.innerHTML='Thumbs Down: 0'
+    thumbsContainer3.append(thumbsUpButton3)
+    thumbsContainer3.append(thumbsDownButton3)
+
     return ratingsContainer;
 }
