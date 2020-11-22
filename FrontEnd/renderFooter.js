@@ -1,7 +1,8 @@
+import {clearElementChildren} from "./clearDom.js"
 export {createFooter}
 
 const createFooter = () => {
-
+    
     const ratingsContainer = document.createElement("container")
     ratingsContainer.classList.add('ratings-container')
 
