@@ -1,7 +1,6 @@
 export {createHeader}
 import {fetchMovieFromLocal, fetchMovieFromRemote, postMovieToLocal} from "./fetchMovies.js"
 
-
 const createHeader = () => {
     const headerContainer = document.createElement("container");
     headerContainer.classList.add('header-container');
@@ -9,7 +8,6 @@ const createHeader = () => {
     const h1 = document.createElement("h1");
     h1.classList.add('webpage-title');
     h1.innerHTML = `Welcome To the Movie Search`;
-
     headerContainer.prepend(h1);
 
     const form = document.createElement("form");
