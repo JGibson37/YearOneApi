@@ -20,9 +20,11 @@ const fetchMovieFromRemote = (search) => {
     .then((response) => response.json())
     .then((data) => { 
       console.log(data)
+      return data;
     })
     .catch((err) => {
       console.error("The error is " + err);
+      return null;
     });
 }
 

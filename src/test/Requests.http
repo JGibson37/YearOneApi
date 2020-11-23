@@ -5,8 +5,7 @@ Content-Type: application/json
 
 {
 "title": "Movie Title",
-"director": "Movie Director",
-"description": "Movie description",
+"imdbID": "imdbID",
 "thumbsUp": "1",
 "thumbsDown": "3"
 }

@@ -11,15 +11,13 @@ public class Movie {
     @GeneratedValue
     private long id;
     private String title;
-    private String director;
-    private String description;
+    private String imdbId;
     private String thumbsUp;
     private String thumbsDown;
 
-    public Movie(String title, String director, String description, String thumbsUp, String thumbsDown) {
+    public Movie(String title, String imdbId, String thumbsUp, String thumbsDown) {
         this.title = title;
-        this.director = director;
-        this.description = description;
+        this.imdbId = imdbId;
         this.thumbsUp = thumbsUp;
         this.thumbsDown = thumbsDown;
     }
@@ -30,12 +28,8 @@ public class Movie {
         return title;
     }
 
-    public String getDirector() {
-        return director;
-    }
-
-    public String getDescription() {
-        return description;
+    public String getImdbId() {
+        return imdbId;
     }
 
     public String getThumbsUp() {
