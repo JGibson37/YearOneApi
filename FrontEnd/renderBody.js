@@ -1,3 +1,4 @@
+import {fetchMovieFromRemote, fetchMovieFromLocal} from "./fetchMovies.js"
 export {createBody}
 
 const createBody = () => {
@@ -18,6 +19,7 @@ const createBody = () => {
 
     const results = document.createElement("div")
     results.innerHTML='Spiderman'
+
     searchContainer2.append(results)
 
     const titleContainer = document.createElement("container")

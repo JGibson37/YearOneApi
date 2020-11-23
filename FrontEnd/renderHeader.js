@@ -1,6 +1,7 @@
 export {createHeader}
 import {fetchMovieFromLocal, fetchMovieFromRemote, postMovieToLocal} from "./fetchMovies.js"
 
+
 const createHeader = () => {
     const headerContainer = document.createElement("container");
     headerContainer.classList.add('header-container');
