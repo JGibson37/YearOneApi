@@ -20,12 +20,12 @@ const createMovieDetailsHeader = (movie, container) => {
     
     const thumbsUpButton = document.createElement("button")
     const thumbsDownButton = document.createElement("button")
+    thumbsUpButton.setAttribute('id', 'thumbs-up-button')
+    thumbsDownButton.setAttribute('id', 'thumbs-down-button')
     thumbsUpButton.innerHTML='Thumbs Up: 0'
     thumbsDownButton.innerHTML='Thumbs Down: 0'
     thumbsContainer.append(thumbsUpButton)
     thumbsContainer.append(thumbsDownButton)
-
-
 
     const directorContainer = document.createElement("container")
     directorContainer.classList.add('director-container')
@@ -125,14 +125,46 @@ const createBody = () => {
     bodyContainer.append(combineDiv)
     createMovieDetails(DEFAULT_MOVIE, combineDiv)
 
+    return bodyContainer;
+
+}
+
+    const foundMatchGetThumbs = (event) => {
+        const movie = event.detail;
+        const thumbsUpButton = document.getElementById("thumbs-up-button")
+        thumbsUpButton.innerHTML= `Thumbs Up: ${movie.thumbsUp}`
+        const thumbsDownButton = document.getElementById("thumbs-down-button")
+        thumbsDownButton.innerHTML= `Thumbs Down: ${movie.thumbsDown}`
+    }
+
     const checkLocalForMovie = async (movie) =>{
         const movieList = await fetchMovieFromLocal();
         console.log("Checking Local for:" + movieList)
         for (let index of movieList){
-            if(movieList.imdbId = movie.imdbID){
-            console.log("Checking Local found a match")
-            break
+            if(index.imdbId === movie.imdbID){
+                const fetchLocalForThumbs = new CustomEvent('fetchLocalForThumbs', { detail: index });
+                document.dispatchEvent(fetchLocalForThumbs);
+            } else {
+                console.log("failed to find match");
             }
+        }
+    }
+
+    const shouldISaveMovie = async (movie) => {
+        const localList = await fetchMovieFromLocal();
+        let movieExists=false;
+        for (let index of localList){
+            if (index.imdbId === movie.imdbID){
+                console.log("I exist already");
+                movieExists=true;
+            }
+        }
+        if(movieExists === false){
+            let titleResult = movie.Title;
+            let imdbIdResult = movie.imdbID;
+            let sentMovie = { "title": titleResult, "imdbId": imdbIdResult, "thumbsUp": 0, "thumbsDown": 0};
+            console.log(sentMovie)
+            postMovieToLocal(sentMovie);
         }
     }
 
@@ -142,12 +174,14 @@ const createBody = () => {
         container.innerHTML="";
         const movie = event.detail
         createMovieDetails(movie, container)
+        shouldISaveMovie(movie)
         checkLocalForMovie(movie)
+
     }
 
     document.addEventListener('fetchClickedMovie', grabMovie, true)
+    document.addEventListener('fetchLocalForThumbs', foundMatchGetThumbs, true)
 
 
 
-    return bodyContainer;
-}
+   

@@ -26,13 +26,6 @@ const createHeader = () => {
         .then((data) => {
             const searchComplete = new CustomEvent('SearchCompleted', { detail: data.Search })
             document.dispatchEvent(searchComplete)
-            for (let index = 0; index < data.Search.length; index++) {
-                let titleResult = data.Search[index].Title;
-                let imdbIdResult = data.Search[index].imdbID;
-                let movie = { "title": titleResult, "imdbId": imdbIdResult, "thumbsUp": 0, "thumbsDown": 0};
-                console.log(movie)
-                postMovieToLocal(movie);
-            }
         });
         event.preventDefault();
     }

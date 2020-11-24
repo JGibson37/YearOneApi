@@ -4,8 +4,8 @@ POST http://localhost:8080/api/movies/add/
 Content-Type: application/json
 
 {
-"title": "Movie Title",
-"imdbID": "imdbID",
+"title": "Avengers: Endgame",
+"imdbId": "tt4154796",
 "thumbsUp": "1",
 "thumbsDown": "3"
 }
