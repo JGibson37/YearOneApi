@@ -1,4 +1,4 @@
-import {fetchMovieFromIDRemote} from "./fetchMovies.js"
+import {fetchMovieFromIDRemote, fetchMovieFromLocal, postMovieToLocal} from "./fetchMovies.js"
 export {createBody}
 
 const DEFAULT_MOVIE = {
@@ -24,6 +24,8 @@ const createMovieDetailsHeader = (movie, container) => {
     thumbsDownButton.innerHTML='Thumbs Down: 0'
     thumbsContainer.append(thumbsUpButton)
     thumbsContainer.append(thumbsDownButton)
+
+
 
     const directorContainer = document.createElement("container")
     directorContainer.classList.add('director-container')
@@ -86,30 +88,35 @@ const createBody = () => {
     searchContainer2.classList.add('search-results-container2')
     searchContainer.append(searchContainer2)
 
-    const grabMovies= (event) =>{
+    const createSearchItemResult = (movie) => {
+        const div = document.createElement("div")
+        div.classList.add("movieTitle")
+        div.innerHTML = `<button id="movie-button">${movie.Title}</button>`
+        div.addEventListener("click", () =>{
+            const movieID = movie.imdbID
+            fetchMovieFromIDRemote(movieID)
+            .then ((data) =>{
+                console.log("ID FETCH: " + data)
+                const fetchClickedMovie = new CustomEvent('fetchClickedMovie', { detail: data })
+                document.dispatchEvent(fetchClickedMovie)
+            })
+        })
+        return div
+    }
+
+    const displaySearchList= (event) =>{
         console.log(" Your movies are: " + event.detail)
         const searchResultsDiv = document.getElementById("searchResults")
         searchResultsDiv.innerHTML = "";
         event.detail.forEach(movie => {
-            const titleDivs = document.createElement("div")
-            titleDivs.classList.add("movieTitle")
-            titleDivs.innerHTML = `<button id="movie-button">${movie.Title}</button>`
-            titleDivs.addEventListener("click", () =>{
-                const movieID = movie.imdbID
-                fetchMovieFromIDRemote(movieID)
-                .then ((data) =>{
-                    console.log("ID FETCH: " + data)
-                    const fetchSpecific = new CustomEvent('fetchSpecific', { detail: data })
-                    document.dispatchEvent(fetchSpecific)
-                })
-            })
-            searchResultsDiv.append(titleDivs)
+            const item = createSearchItemResult(movie)
+            searchResultsDiv.append(item)
         })
     }
 
     const results = document.createElement("div")
     results.setAttribute('id', 'searchResults')
-    document.addEventListener('SearchCompleted', grabMovies, true)
+    document.addEventListener('SearchCompleted', displaySearchList, true)
     searchContainer2.append(results)
 
     const combineDiv = document.createElement("div")
@@ -118,15 +125,27 @@ const createBody = () => {
     bodyContainer.append(combineDiv)
     createMovieDetails(DEFAULT_MOVIE, combineDiv)
 
+    const checkLocalForMovie = async (movie) =>{
+        const movieList = await fetchMovieFromLocal();
+        console.log("Checking Local for:" + movieList)
+        for (let index of movieList){
+            if(movieList.imdbId = movie.imdbID){
+            console.log("Checking Local found a match")
+            break
+            }
+        }
+    }
+
     const grabMovie= (event) => {
         console.log("I grabbed " + event.detail)
         const container = document.getElementById('combineDiv')
         container.innerHTML="";
         const movie = event.detail
         createMovieDetails(movie, container)
+        checkLocalForMovie(movie)
     }
 
-    document.addEventListener('fetchSpecific', grabMovie, true)
+    document.addEventListener('fetchClickedMovie', grabMovie, true)
 
 
 

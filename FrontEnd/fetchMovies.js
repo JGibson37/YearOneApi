@@ -1,10 +1,28 @@
 export {fetchMovieFromLocal, fetchMovieFromRemote, fetchMovieFromIDRemote, postMovieToLocal}
 
-const fetchMovieFromLocal = () => {
-  fetch(`http://localhost:8080/api/movies/`)
-    .then((response) => response.json())
-    .then((data) => console.log(data));
+// const fetchMovieFromLocal = () => {
+//   return fetch(`http://localhost:8080/api/movies/`)
+//     .then((response) => response.json())
+//     .then((data) => {
+//       console.log(data)
+//       return data;
+//     });
+// }
+
+// const fetchMovieFromLocal = async () => {
+//   const response = await fetch(`http://localhost:8080/api/movies/`);
+//   return await response.json();
+// }
+
+const fetchMovieFromLocal = async () => {
+  const response = await fetch(`http://localhost:8080/api/movies/`);
+  return response.json();
 }
+
+(async function() {
+  const movieList = await fetchMovieFromLocal();
+  console.log(movieList);
+})();
 
 const fetchMovieFromRemote = (search) => {
   return fetch(
