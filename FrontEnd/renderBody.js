@@ -7,15 +7,20 @@ const DEFAULT_MOVIE = {
 }
 
 const createMovieDetails = (movie, container) => {
+    const movieDetailsContainer = document.createElement("container")
+    movieDetailsContainer.setAttribute('id', 'movie-details-container')
+    movieDetailsContainer.classList.add('movie-details-container')
+    container.append(movieDetailsContainer)
+
     const resultsTitle = document.createElement("h2")
     resultsTitle.setAttribute('id', 'movie-title')
     resultsTitle.classList.add('results-title')
     resultsTitle.innerHTML=movie.Title
-    container.append(resultsTitle)
+    movieDetailsContainer.append(resultsTitle)
 
     const thumbsContainer = document.createElement("container")
     thumbsContainer.classList.add('thumbs-container')
-    container.append(thumbsContainer)
+    movieDetailsContainer.append(thumbsContainer)
     
     const thumbsUpButton = document.createElement("button")
     const thumbsDownButton = document.createElement("button")
@@ -26,7 +31,7 @@ const createMovieDetails = (movie, container) => {
 
     const directorContainer = document.createElement("container")
     directorContainer.classList.add('director-container')
-    container.append(directorContainer)
+    movieDetailsContainer.append(directorContainer)
 
     const directorH2 = document.createElement("h2")
     directorH2.innerHTML='Director'
@@ -36,6 +41,25 @@ const createMovieDetails = (movie, container) => {
     resultsDirector.classList.add('results-director')
     resultsDirector.innerHTML=movie.Director
     directorContainer.append(resultsDirector)
+
+
+
+    const movieInfoContainer = document.createElement("container")
+    movieInfoContainer.classList.add('movie-info-container')
+    container.append(movieInfoContainer)
+
+    const descriptionContainer = document.createElement("container")
+    descriptionContainer.classList.add('description-container')
+    movieInfoContainer.append(descriptionContainer)
+
+    const descriptionH2 = document.createElement("h2")
+    descriptionH2.classList.add('description-header')
+    descriptionH2.innerHTML='Description'
+    descriptionContainer.append(descriptionH2)
+
+    const resultsDescription = document.createElement("div")
+    resultsDescription.innerHTML='Generation Defining Movie'
+    descriptionContainer.append(resultsDescription)
 }
 
 const createBody = () => {
@@ -80,15 +104,15 @@ const createBody = () => {
     document.addEventListener('SearchCompleted', grabMovies, true)
     searchContainer2.append(results)
 
-    const titleContainer = document.createElement("container")
-    titleContainer.setAttribute('id', 'title-container')
-    titleContainer.classList.add('title-container')
-    bodyContainer.append(titleContainer)
-    createMovieDetails(DEFAULT_MOVIE, titleContainer)
+    const combineDiv = document.createElement("div")
+    combineDiv.setAttribute('id', 'combineDiv')
+    combineDiv.setAttribute('class', 'combineDiv')
+    bodyContainer.append(combineDiv)
+    createMovieDetails(DEFAULT_MOVIE, combineDiv)
 
     const grabMovie= (event) => {
         console.log("I grabbed " + event.detail)
-        const container = document.getElementById('title-container')
+        const container = document.getElementById('combineDiv')
         container.innerHTML="";
         const movie = event.detail
         createMovieDetails(movie, container)
@@ -96,22 +120,7 @@ const createBody = () => {
 
     document.addEventListener('fetchSpecific', grabMovie, true)
 
-    const movieInfoContainer = document.createElement("container")
-    movieInfoContainer.classList.add('movie-info-container')
-    bodyContainer.append(movieInfoContainer)
 
-    const descriptionContainer = document.createElement("container")
-    descriptionContainer.classList.add('description-container')
-    movieInfoContainer.append(descriptionContainer)
-
-    const descriptionH2 = document.createElement("h2")
-    descriptionH2.classList.add('description-header')
-    descriptionH2.innerHTML='Description'
-    descriptionContainer.append(descriptionH2)
-
-    const resultsDescription = document.createElement("div")
-    resultsDescription.innerHTML='Generation Defining Movie'
-    descriptionContainer.append(resultsDescription)
 
     return bodyContainer;
 }

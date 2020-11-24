@@ -8,7 +8,7 @@ const renderPage = () => {
     const container = document.querySelector('.all-container');
     container.append(createHeader())
     container.append(createBody())
-    container.append(createFooter())
+   // container.append(createFooter())
 }
 
 renderPage()
