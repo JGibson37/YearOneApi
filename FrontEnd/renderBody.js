@@ -4,6 +4,7 @@ export {createBody}
 const DEFAULT_MOVIE = {
     Title: 'Spiderman',
     Director: 'Sam Raimi',
+    Plot: 'ejrbgoliergubaeoirugb',
 }
 
 const createMovieDetails = (movie, container) => {
@@ -54,11 +55,11 @@ const createMovieDetails = (movie, container) => {
 
     const descriptionH2 = document.createElement("h2")
     descriptionH2.classList.add('description-header')
-    descriptionH2.innerHTML='Description'
+    descriptionH2.innerHTML='Plot'
     descriptionContainer.append(descriptionH2)
 
     const resultsDescription = document.createElement("div")
-    resultsDescription.innerHTML='Generation Defining Movie'
+    resultsDescription.innerHTML=movie.Plot
     descriptionContainer.append(resultsDescription)
 }
 
