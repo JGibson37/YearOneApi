@@ -2,26 +2,21 @@ import {fetchMovieFromIDRemote} from "./fetchMovies.js"
 export {createBody}
 
 const DEFAULT_MOVIE = {
-    Title: 'Spiderman',
-    Director: 'Sam Raimi',
-    Plot: 'ejrbgoliergubaeoirugb',
+    Title: 'Rogue One: A Star Wars Story',
+    Director: 'Gareth Edwards',
+    Plot: 'The daughter of an Imperial scientist joins the Rebel Alliance in a risky move to steal the plans for the Death Star.',
 }
 
-const createMovieDetails = (movie, container) => {
-    const movieDetailsContainer = document.createElement("container")
-    movieDetailsContainer.setAttribute('id', 'movie-details-container')
-    movieDetailsContainer.classList.add('movie-details-container')
-    container.append(movieDetailsContainer)
-
+const createMovieDetailsHeader = (movie, container) => {
     const resultsTitle = document.createElement("h2")
     resultsTitle.setAttribute('id', 'movie-title')
     resultsTitle.classList.add('results-title')
     resultsTitle.innerHTML=movie.Title
-    movieDetailsContainer.append(resultsTitle)
+    container.append(resultsTitle)
 
     const thumbsContainer = document.createElement("container")
     thumbsContainer.classList.add('thumbs-container')
-    movieDetailsContainer.append(thumbsContainer)
+    container.append(thumbsContainer)
     
     const thumbsUpButton = document.createElement("button")
     const thumbsDownButton = document.createElement("button")
@@ -32,7 +27,7 @@ const createMovieDetails = (movie, container) => {
 
     const directorContainer = document.createElement("container")
     directorContainer.classList.add('director-container')
-    movieDetailsContainer.append(directorContainer)
+    container.append(directorContainer)
 
     const directorH2 = document.createElement("h2")
     directorH2.innerHTML='Director'
@@ -42,25 +37,37 @@ const createMovieDetails = (movie, container) => {
     resultsDirector.classList.add('results-director')
     resultsDirector.innerHTML=movie.Director
     directorContainer.append(resultsDirector)
+}
 
+const createMovieInfo = (movie,container) => {
 
+    const descriptionContainer = document.createElement("container")
+    descriptionContainer.classList.add('description-container')
+    container.append(descriptionContainer)
+
+    const descriptionH2 = document.createElement("h2")
+    descriptionH2.classList.add('description-header')
+    descriptionH2.innerHTML = 'Plot'
+    descriptionContainer.append(descriptionH2)
+
+    const resultsDescription = document.createElement("div")
+    resultsDescription.innerHTML = movie.Plot
+    descriptionContainer.append(resultsDescription)
+}
+
+const createMovieDetails = (movie, container) => {
+    const movieDetailsContainer = document.createElement("container")
+    movieDetailsContainer.setAttribute('id', 'movie-details-container')
+    movieDetailsContainer.classList.add('movie-details-container')
+    container.append(movieDetailsContainer)
+    
+    createMovieDetailsHeader(movie, movieDetailsContainer)
 
     const movieInfoContainer = document.createElement("container")
     movieInfoContainer.classList.add('movie-info-container')
     container.append(movieInfoContainer)
 
-    const descriptionContainer = document.createElement("container")
-    descriptionContainer.classList.add('description-container')
-    movieInfoContainer.append(descriptionContainer)
-
-    const descriptionH2 = document.createElement("h2")
-    descriptionH2.classList.add('description-header')
-    descriptionH2.innerHTML='Plot'
-    descriptionContainer.append(descriptionH2)
-
-    const resultsDescription = document.createElement("div")
-    resultsDescription.innerHTML=movie.Plot
-    descriptionContainer.append(resultsDescription)
+    createMovieInfo(movie, movieInfoContainer)
 }
 
 const createBody = () => {
