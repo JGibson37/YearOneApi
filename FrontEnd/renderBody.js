@@ -1,4 +1,4 @@
-import {fetchMovieFromRemote, fetchMovieFromLocal} from "./fetchMovies.js"
+import {fetchMovieFromIDRemote} from "./fetchMovies.js"
 export {createBody}
 
 const createBody = () => {
@@ -19,11 +19,26 @@ const createBody = () => {
 
     const grabMovies= (event) =>{
         console.log(" Your movies are: " + event.detail)
+        const searchResultsDiv = document.getElementById("searchResults")
+
+        event.detail.forEach(movie => {
+            const titleDivs = document.createElement("div")
+            titleDivs.classList.add("movieTitle")
+            titleDivs.innerHTML = `<button id="movie-button">${movie.Title}</button>`
+            titleDivs.addEventListener("click", () =>{
+                const movieID = movie.imdbID
+                fetchMovieFromIDRemote(movieID)
+                .then ((data) =>{
+                    console.log("ID FETCH: " + data)
+                })
+            })
+            searchResultsDiv.append(titleDivs)
+        })
     }
 
     const results = document.createElement("div")
+    results.setAttribute('id', 'searchResults')
     document.addEventListener('SearchCompleted', grabMovies, true)
-    results.innerHTML='Spiderman'
     searchContainer2.append(results)
 
     const titleContainer = document.createElement("container")

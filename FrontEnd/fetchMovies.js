@@ -29,7 +29,7 @@ const fetchMovieFromRemote = (search) => {
 
 const fetchMovieFromIDRemote = (search) => {
   return fetch(
-    `https://movie-database-imdb-alternative.p.rapidapi.com/?i=${search}=json`, 
+    `https://movie-database-imdb-alternative.p.rapidapi.com/?i=${search}&r=json`, 
     {
       "method": "GET",
       "headers": {
