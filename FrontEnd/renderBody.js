@@ -1,6 +1,43 @@
 import {fetchMovieFromIDRemote} from "./fetchMovies.js"
 export {createBody}
 
+const DEFAULT_MOVIE = {
+    Title: 'Spiderman',
+    Director: 'Sam Raimi',
+}
+
+const createMovieDetails = (movie, container) => {
+    const resultsTitle = document.createElement("h2")
+    resultsTitle.setAttribute('id', 'movie-title')
+    resultsTitle.classList.add('results-title')
+    resultsTitle.innerHTML=movie.Title
+    container.append(resultsTitle)
+
+    const thumbsContainer = document.createElement("container")
+    thumbsContainer.classList.add('thumbs-container')
+    container.append(thumbsContainer)
+    
+    const thumbsUpButton = document.createElement("button")
+    const thumbsDownButton = document.createElement("button")
+    thumbsUpButton.innerHTML='Thumbs Up: 0'
+    thumbsDownButton.innerHTML='Thumbs Down: 0'
+    thumbsContainer.append(thumbsUpButton)
+    thumbsContainer.append(thumbsDownButton)
+
+    const directorContainer = document.createElement("container")
+    directorContainer.classList.add('director-container')
+    container.append(directorContainer)
+
+    const directorH2 = document.createElement("h2")
+    directorH2.innerHTML='Director'
+    directorContainer.append(directorH2)
+
+    const resultsDirector = document.createElement("div")
+    resultsDirector.classList.add('results-director')
+    resultsDirector.innerHTML=movie.Director
+    directorContainer.append(resultsDirector)
+}
+
 const createBody = () => {
     const bodyContainer = document.createElement("container")
     bodyContainer.classList.add('search-title-movie-container')
@@ -30,49 +67,34 @@ const createBody = () => {
                 fetchMovieFromIDRemote(movieID)
                 .then ((data) =>{
                     console.log("ID FETCH: " + data)
+                    const fetchSpecific = new CustomEvent('fetchSpecific', { detail: data })
+                    document.dispatchEvent(fetchSpecific)
                 })
             })
             searchResultsDiv.append(titleDivs)
         })
     }
-    
+
     const results = document.createElement("div")
     results.setAttribute('id', 'searchResults')
     document.addEventListener('SearchCompleted', grabMovies, true)
     searchContainer2.append(results)
 
     const titleContainer = document.createElement("container")
+    titleContainer.setAttribute('id', 'title-container')
     titleContainer.classList.add('title-container')
     bodyContainer.append(titleContainer)
+    createMovieDetails(DEFAULT_MOVIE, titleContainer)
 
-    const resultsTitle = document.createElement("h2")
-    resultsTitle.classList.add('results-title')
-    resultsTitle.innerHTML='Spiderman'
-    titleContainer.append(resultsTitle)
+    const grabMovie= (event) => {
+        console.log("I grabbed " + event.detail)
+        const container = document.getElementById('title-container')
+        container.innerHTML="";
+        const movie = event.detail
+        createMovieDetails(movie, container)
+    }
 
-    const thumbsContainer = document.createElement("container")
-    thumbsContainer.classList.add('thumbs-container')
-    titleContainer.append(thumbsContainer)
-    
-    const thumbsUpButton = document.createElement("button")
-    const thumbsDownButton = document.createElement("button")
-    thumbsUpButton.innerHTML='Thumbs Up: 0'
-    thumbsDownButton.innerHTML='Thumbs Down: 0'
-    thumbsContainer.append(thumbsUpButton)
-    thumbsContainer.append(thumbsDownButton)
-
-    const directorContainer = document.createElement("container")
-    directorContainer.classList.add('director-container')
-    titleContainer.append(directorContainer)
-
-    const directorH2 = document.createElement("h2")
-    directorH2.innerHTML='Director'
-    directorContainer.append(directorH2)
-
-    const resultsDirector = document.createElement("div")
-    resultsDirector.classList.add('results-director')
-    resultsDirector.innerHTML='Sam Raimi'
-    directorContainer.append(resultsDirector)
+    document.addEventListener('fetchSpecific', grabMovie, true)
 
     const movieInfoContainer = document.createElement("container")
     movieInfoContainer.classList.add('movie-info-container')

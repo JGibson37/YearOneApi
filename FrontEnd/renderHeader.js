@@ -16,12 +16,6 @@ const createHeader = () => {
     form.setAttribute("id", "form1")
     headerContainer.append(form);
 
-    const saveData = (data) => {
-        for (let index = 0; index < data.length; index++) {
-            movieList = movieList + data[index]; 
-        }
-    }
-
     const formSubmit = (event) => {
         const formData = new FormData(event.target);
         let data = {};
@@ -30,7 +24,6 @@ const createHeader = () => {
         }
         fetchMovieFromRemote(data.mName)
         .then((data) => {
-            saveData(data)
             const searchComplete = new CustomEvent('SearchCompleted', { detail: data.Search })
             document.dispatchEvent(searchComplete)
             for (let index = 0; index < data.Search.length; index++) {
