@@ -20,7 +20,7 @@ const createBody = () => {
     const grabMovies= (event) =>{
         console.log(" Your movies are: " + event.detail)
         const searchResultsDiv = document.getElementById("searchResults")
-
+        searchResultsDiv.innerHTML = "";
         event.detail.forEach(movie => {
             const titleDivs = document.createElement("div")
             titleDivs.classList.add("movieTitle")
@@ -35,7 +35,7 @@ const createBody = () => {
             searchResultsDiv.append(titleDivs)
         })
     }
-
+    
     const results = document.createElement("div")
     results.setAttribute('id', 'searchResults')
     document.addEventListener('SearchCompleted', grabMovies, true)

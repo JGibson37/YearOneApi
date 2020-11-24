@@ -22,8 +22,6 @@ const createHeader = () => {
         }
     }
 
-   
-
     const formSubmit = (event) => {
         const formData = new FormData(event.target);
         let data = {};
