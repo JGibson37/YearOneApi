@@ -17,9 +17,13 @@ const createBody = () => {
     searchContainer2.classList.add('search-results-container2')
     searchContainer.append(searchContainer2)
 
-    const results = document.createElement("div")
-    results.innerHTML='Spiderman'
+    const grabMovies= (event) =>{
+        console.log(" Your movies are: " + event.detail)
+    }
 
+    const results = document.createElement("div")
+    document.addEventListener('SearchCompleted', grabMovies, true)
+    results.innerHTML='Spiderman'
     searchContainer2.append(results)
 
     const titleContainer = document.createElement("container")

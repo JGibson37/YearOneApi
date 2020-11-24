@@ -1,4 +1,4 @@
-export {fetchMovieFromLocal, fetchMovieFromRemote, postMovieToLocal}
+export {fetchMovieFromLocal, fetchMovieFromRemote, fetchMovieFromIDRemote, postMovieToLocal}
 
 const fetchMovieFromLocal = () => {
   fetch(`http://localhost:8080/api/movies/`)
@@ -15,8 +15,7 @@ const fetchMovieFromRemote = (search) => {
         "x-rapidapi-key": "af02123c16msh99467b35f3f43a0p11645ejsn2373f0b6b10a",
         "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
       },
-    }
-  )
+    })
     .then((response) => response.json())
     .then((data) => { 
       console.log(data)
@@ -27,6 +26,28 @@ const fetchMovieFromRemote = (search) => {
       return null;
     });
 }
+
+const fetchMovieFromIDRemote = (search) => {
+  return fetch(
+    `https://movie-database-imdb-alternative.p.rapidapi.com/?i=${search}=json`, 
+    {
+      "method": "GET",
+      "headers": {
+        "x-rapidapi-key": "af02123c16msh99467b35f3f43a0p11645ejsn2373f0b6b10a",
+        "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com"
+      }
+    })
+    .then((response) => response.json())
+    .then((data) => { 
+      console.log(data)
+      return data;
+    })
+    .catch((err) => {
+      console.error("The error is " + err);
+      return null;
+    });
+}
+
 
 const postMovieToLocal = (movie) => {
   return fetch(`http://localhost:8080/api/movies/add/`, {

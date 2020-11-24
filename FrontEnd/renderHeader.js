@@ -1,6 +1,8 @@
 export {createHeader}
 import {fetchMovieFromLocal, fetchMovieFromRemote, postMovieToLocal} from "./fetchMovies.js"
 
+let movieList={};
+
 const createHeader = () => {
     const headerContainer = document.createElement("container");
     headerContainer.classList.add('header-container');
@@ -14,6 +16,14 @@ const createHeader = () => {
     form.setAttribute("id", "form1")
     headerContainer.append(form);
 
+    const saveData = (data) => {
+        for (let index = 0; index < data.length; index++) {
+            movieList = movieList + data[index]; 
+        }
+    }
+
+   
+
     const formSubmit = (event) => {
         const formData = new FormData(event.target);
         let data = {};
@@ -22,6 +32,9 @@ const createHeader = () => {
         }
         fetchMovieFromRemote(data.mName)
         .then((data) => {
+            saveData(data)
+            const searchComplete = new CustomEvent('SearchCompleted', { detail: data.Search })
+            document.dispatchEvent(searchComplete)
             for (let index = 0; index < data.Search.length; index++) {
                 let titleResult = data.Search[index].Title;
                 let imdbIdResult = data.Search[index].imdbID;
