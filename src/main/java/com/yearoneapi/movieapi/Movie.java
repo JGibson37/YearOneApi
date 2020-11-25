@@ -40,4 +40,6 @@ public class Movie {
         return thumbsDown;
     }
 
+    public void plusThumbsUp() {
+    }
 }

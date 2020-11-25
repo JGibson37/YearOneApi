@@ -24,4 +24,8 @@ public class MovieStorage {
     public Movie retrieveMovieById(Long id){
         return movieRepo.findById(id).get();
     }
+
+    public Movie updateMovie(Movie movie) {
+        return movie;
+    }
 }

@@ -2,9 +2,16 @@ import {fetchMovieFromIDRemote, fetchMovieFromLocal, postMovieToLocal} from "./f
 export {createBody}
 
 const DEFAULT_MOVIE = {
+    Poster: 'https://m.media-amazon.com/images/M/MV5BMjEwMzMxODIzOV5BMl5BanBnXkFtZTgwNzg3OTAzMDI@._V1_SX300.jpg',
     Title: 'Rogue One: A Star Wars Story',
     Director: 'Gareth Edwards',
     Plot: 'The daughter of an Imperial scientist joins the Rebel Alliance in a risky move to steal the plans for the Death Star.',
+    Released: '16 Dec 2016',
+    Actors: 'Felicity Jones, Diego Luna, Alan Tudyk, Donnie Yen',
+    Awards: 'Nominated for 2 Oscars. Another 24 wins & 80 nominations.',
+    Writer: 'Chris Weitz (screenplay by), Tony Gilroy (screenplay by), John Knoll (story by), Gary Whitta (story by), George Lucas (based on characters created by)',
+    Production: 'Lucasfilm Ltd.',
+    Runtime: '133 min'
 }
 
 const createMovieDetailsHeader = (movie, container) => {
@@ -39,6 +46,26 @@ const createMovieDetailsHeader = (movie, container) => {
     resultsDirector.classList.add('results-director')
     resultsDirector.innerHTML=movie.Director
     directorContainer.append(resultsDirector)
+
+    const releaseYearContainer = document.createElement("container")
+    releaseYearContainer.classList.add('release-year-container')
+    container.append(releaseYearContainer)
+
+    const releaseYearH2 = document.createElement("h2")
+    releaseYearH2.innerHTML='Release Year'
+    releaseYearContainer.append(releaseYearH2)
+
+    const releaseYear = document.createElement("div")
+    releaseYear.classList.add('release-year')
+    releaseYear.innerHTML=movie.Released
+    releaseYearContainer.append(releaseYear)
+
+    const posterContainer = document.createElement("container")
+    posterContainer.classList.add("poster-container")
+    const posterDisplay = document.createElement("img")
+    posterDisplay.setAttribute("src", movie.Poster)
+    posterContainer.append(posterDisplay)
+    container.append(posterContainer)
 }
 
 const createMovieInfo = (movie,container) => {
@@ -55,6 +82,66 @@ const createMovieInfo = (movie,container) => {
     const resultsDescription = document.createElement("div")
     resultsDescription.innerHTML = movie.Plot
     descriptionContainer.append(resultsDescription)
+
+    const actorsContainer = document.createElement("container")
+    actorsContainer.classList.add('actors-container')
+    container.append(actorsContainer)
+
+    const actorsH2 = document.createElement("h2")
+    actorsH2.innerHTML="Prominent Actors"
+    actorsContainer.append(actorsH2)
+
+    const actors =document.createElement("div")
+    actors.innerHTML=movie.Actors
+    actorsContainer.append(actors)
+
+    const awardsContainer = document.createElement("container")
+    awardsContainer.classList.add('awards-container')
+    container.append(awardsContainer)
+
+    const awardsH2 = document.createElement("h2")
+    awardsH2.innerHTML= 'Awards and Nominations'
+    awardsContainer.append(awardsH2)
+
+    const awards = document.createElement("div")
+    awards.innerHTML = movie.Awards
+    awardsContainer.append(awards)
+
+    const writerContainer = document.createElement("container")
+    writerContainer.classList.add("writer-container")
+    container.append(writerContainer)
+
+    const writerH2 = document.createElement("h2")
+    writerH2.innerHTML= 'Written By'
+    writerContainer.append(writerH2)
+
+    const writers = document.createElement("div")
+    writers.innerHTML= movie.Writer
+    writerContainer.append(writers)
+
+    const productionContainer = document.createElement("container")
+    productionContainer.classList.add("producer-container")
+    container.append(productionContainer)
+
+    const producerH2 = document.createElement("h2")
+    producerH2.innerHTML= 'Produced By'
+    productionContainer.append(producerH2)
+
+    const producer = document.createElement("div")
+    producer.innerHTML= movie.Production
+    productionContainer.append(producer)
+
+    const runtimeContainer = document.createElement("container")
+    runtimeContainer.classList.add("runtime-container")
+    container.append(runtimeContainer)
+
+    const runtimeH2 = document.createElement("h2")
+    runtimeH2.innerHTML= 'Runtime'
+    runtimeContainer.append(runtimeH2)
+
+    const runtime = document.createElement("div")
+    runtime.innerHTML= movie.Runtime
+    runtimeContainer.append(runtime)
 }
 
 const createMovieDetails = (movie, container) => {
@@ -81,6 +168,7 @@ const createBody = () => {
     bodyContainer.append(searchContainer)
 
     const resultsH2 = document.createElement("h2")
+    resultsH2.classList.add("resultsH2-class")
     resultsH2.innerHTML='Search Results:'
     searchContainer.append(resultsH2)
 
@@ -116,6 +204,7 @@ const createBody = () => {
 
     const results = document.createElement("div")
     results.setAttribute('id', 'searchResults')
+    results.classList.add("search-list-results-container")
     document.addEventListener('SearchCompleted', displaySearchList, true)
     searchContainer2.append(results)
 
@@ -135,6 +224,16 @@ const createBody = () => {
         thumbsUpButton.innerHTML= `Thumbs Up: ${movie.thumbsUp}`
         const thumbsDownButton = document.getElementById("thumbs-down-button")
         thumbsDownButton.innerHTML= `Thumbs Down: ${movie.thumbsDown}`
+        createThumbsEvents(thumbsUpButton, thumbsDownButton);
+    }
+
+    const createThumbsEvents = (thumbsUpButton, thumbsDownButton) => {
+        thumbsUpButton.addEventListener("click", () => {
+            console.log("You added a click event");
+        });
+        thumbsDownButton.addEventListener("click", () => {
+            console.log("You added a click event");
+        });
     }
 
     const checkLocalForMovie = async (movie) =>{
@@ -177,6 +276,12 @@ const createBody = () => {
         shouldISaveMovie(movie)
         checkLocalForMovie(movie)
 
+    }
+
+    const addThumbsListeners = () =>{
+        thumbsUpButton.addEventListener("click", () => {
+        console.log("You thumbs upped")
+        })
     }
 
     document.addEventListener('fetchClickedMovie', grabMovie, true)

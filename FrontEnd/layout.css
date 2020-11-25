@@ -1,3 +1,13 @@
+:root {
+    --color-1: #8D0801;
+    --color-2: #EBEBEB;
+    --color-3: #708D81;
+
+}
+body {
+    background-color: var(--color-1);
+
+}
 .combineDiv {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -9,33 +19,65 @@
 }
 
 .description-container {
-    display:grid;
-    grid-template-rows: 100px 1fr;
+
 }
 
+.form1-class {
+    display:flex;
+    justify-content: center;
+    padding-bottom: 1em;
+}
 .header-container{
     display:grid;
     justify-content: center;
     margin:10px;
+    background-color: var(--color-3);
 }
 
 .movieTitle {
     margin: 5px;
 }
+
+.poster-container{
+    display: flex;
+    justify-content: center;
+    padding-top: 1em;
+}
+
 .search-title-movie-container{
     display:grid;
     grid-template-columns: 200px 1fr;
-    height:500px;
+    height: 82vh;
+    background-color:var(--color-3);
 }
 
+.search-results-container {
+    background-color: var(--color-3);
+}
+
+.search-list-results-container {
+    display: grid;
+    justify-items: center;
+}
 .ratings-title{
     display: flex;
     justify-content: center;
 }
 
+.release-year-container {
+    display: grid;
+    justify-content: center;
+}
+.release-year {
+    justify-self: center;
+}
 .results-title{
     display:flex;
     justify-content: center;
+}
+
+.resultsH2-class {
+    padding-left: 1em;
 }
 
 .title-container{
@@ -47,10 +89,4 @@
 .thumbs-container{
     display:flex;
     justify-content: center;
-}
-
-.recent-ratings-container{
-    display: grid;
-    justify-content: center;
-    grid-template-columns: 1fr 1fr 1fr;
 }

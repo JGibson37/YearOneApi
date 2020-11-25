@@ -1,7 +1,5 @@
 export {createHeader}
-import {fetchMovieFromLocal, fetchMovieFromRemote, postMovieToLocal} from "./fetchMovies.js"
-
-let movieList={};
+import { fetchMovieFromRemote } from "./fetchMovies.js"
 
 const createHeader = () => {
     const headerContainer = document.createElement("container");
@@ -14,6 +12,7 @@ const createHeader = () => {
 
     const form = document.createElement("form");
     form.setAttribute("id", "form1")
+    form.classList.add("form1-class")
     headerContainer.append(form);
 
     const formSubmit = (event) => {

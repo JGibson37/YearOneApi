@@ -19,8 +19,9 @@ public class MovieController {
         return movieStorage.retrieveAllMovies();
     }
 
-    @GetMapping("api/movies/{id}")
-    public Movie returnMovieById(@PathVariable long id){
+    @PatchMapping("api/movies/{id}")
+    public Movie updateMovieById(@PathVariable long id, @RequestBody Movie movie){
+        //movieStorage.updateMovie(movie);
         return movieStorage.retrieveMovieById(id);
     }
 
