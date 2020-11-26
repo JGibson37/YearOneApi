@@ -1,4 +1,4 @@
-import {fetchMovieFromIDRemote, fetchMovieFromLocal, postMovieToLocal} from "./fetchMovies.js"
+import {fetchMovieFromIDRemote, fetchMovieFromLocal, postMovieToLocal, postMovieThumbsUpToLocal, postMovieThumbsDownToLocal} from "./fetchMovies.js"
 export {createBody}
 
 const DEFAULT_MOVIE = {
@@ -224,14 +224,17 @@ const createBody = () => {
         thumbsUpButton.innerHTML= `Thumbs Up: ${movie.thumbsUp}`
         const thumbsDownButton = document.getElementById("thumbs-down-button")
         thumbsDownButton.innerHTML= `Thumbs Down: ${movie.thumbsDown}`
-        createThumbsEvents(thumbsUpButton, thumbsDownButton);
+        createThumbsEvents(thumbsUpButton, thumbsDownButton, movie);
     }
 
-    const createThumbsEvents = (thumbsUpButton, thumbsDownButton) => {
+    const createThumbsEvents = (thumbsUpButton, thumbsDownButton, movie) => {
+        console.log("Entered createThumbsEvents")
         thumbsUpButton.addEventListener("click", () => {
+            postMovieThumbsUpToLocal(movie)
             console.log("You added a click event");
         });
         thumbsDownButton.addEventListener("click", () => {
+            postMovieThumbsDownToLocal(movie)
             console.log("You added a click event");
         });
     }
@@ -276,12 +279,6 @@ const createBody = () => {
         shouldISaveMovie(movie)
         checkLocalForMovie(movie)
 
-    }
-
-    const addThumbsListeners = () =>{
-        thumbsUpButton.addEventListener("click", () => {
-        console.log("You thumbs upped")
-        })
     }
 
     document.addEventListener('fetchClickedMovie', grabMovie, true)

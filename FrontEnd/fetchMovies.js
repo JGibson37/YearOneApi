@@ -1,4 +1,4 @@
-export {fetchMovieFromLocal, fetchMovieFromRemote, fetchMovieFromIDRemote, postMovieToLocal}
+export {fetchMovieFromLocal, fetchMovieFromRemote, fetchMovieFromIDRemote, postMovieToLocal, postMovieThumbsUpToLocal, postMovieThumbsDownToLocal}
 
 const fetchMovieFromLocal = async () => {
   const response = await fetch(`http://localhost:8080/api/movies/`);
@@ -59,5 +59,23 @@ const postMovieToLocal = (movie) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(movie),
+    }).then((response) => response.json());
+};
+
+const postMovieThumbsUpToLocal = (movie) => {
+  return fetch(`http://localhost:8080/api/movies/${movie.id}/thumbsUp`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    }).then((response) => response.json());
+};
+
+const postMovieThumbsDownToLocal = (movie) => {
+  return fetch(`http://localhost:8080/api/movies/${movie.id}/thumbsDown`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     }).then((response) => response.json());
 };
