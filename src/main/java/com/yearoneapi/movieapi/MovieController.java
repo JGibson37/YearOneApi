@@ -3,6 +3,7 @@ package com.yearoneapi.movieapi;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -19,10 +20,16 @@ public class MovieController {
         return movieStorage.retrieveAllMovies();
     }
 
-    @PatchMapping("api/movies/{id}")
-    public Movie updateMovieById(@PathVariable long id, @RequestBody Movie movie){
-        //movieStorage.updateMovie(movie);
-        return movieStorage.retrieveMovieById(id);
+    @PostMapping("api/movies/{id}/thumbsDown")
+    public Movie thumbsDownMovieById(@PathVariable long id){
+        Optional<Movie> oMovie = movieStorage.retrieveMovieById(id);
+        return oMovie.map(movie -> movieStorage.thumbsDownMovie(movie)).orElse(null);
+    }
+
+    @PostMapping("api/movies/{id}/thumbsUp")
+    public Movie thumbsUpMovieById(@PathVariable long id){
+        Optional<Movie> oMovie = movieStorage.retrieveMovieById(id);
+        return oMovie.map(movie -> movieStorage.thumbsUpMovie(movie)).orElse(null);
     }
 
     @PostMapping("/api/movies/add/")

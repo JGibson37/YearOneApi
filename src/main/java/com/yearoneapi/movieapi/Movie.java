@@ -12,10 +12,10 @@ public class Movie {
     private long id;
     private String title;
     private String imdbId;
-    private String thumbsUp;
-    private String thumbsDown;
+    private int thumbsUp;
+    private int thumbsDown;
 
-    public Movie(String title, String imdbId, String thumbsUp, String thumbsDown) {
+    public Movie(String title, String imdbId, int thumbsUp, int thumbsDown) {
         this.title = title;
         this.imdbId = imdbId;
         this.thumbsUp = thumbsUp;
@@ -32,14 +32,19 @@ public class Movie {
         return imdbId;
     }
 
-    public String getThumbsUp() {
+    public int getThumbsUp() {
         return thumbsUp;
     }
 
-    public String getThumbsDown() {
+    public int getThumbsDown() {
         return thumbsDown;
     }
 
-    public void plusThumbsUp() {
+    public void incrementThumbsUp() {
+        thumbsUp++;
+    }
+
+    public void incrementThumbsDown() {
+        thumbsDown++;
     }
 }

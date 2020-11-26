@@ -13,7 +13,7 @@ public class Populator implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Movie movie1 = new Movie("Test Movie", "456wh4", "0", "0");
+        Movie movie1 = new Movie("Test Movie", "456wh4", 0, 0);
         movieStorage.save(movie1);
     }
 }

@@ -10,10 +10,4 @@ Content-Type: application/json
 "thumbsDown": "3"
 }
 ###
-PATCH http://localhost:8080/api/movies/0/
-Content-Type: application/json
-
-{
-"thumbsUp": "3",
-"thumbsDown": "6"
-}
+POST http://localhost:8080/api/movies/1/thumbsUp
