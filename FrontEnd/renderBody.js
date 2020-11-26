@@ -14,6 +14,18 @@ const DEFAULT_MOVIE = {
     Runtime: '133 min'
 }
 
+const drawThumbsButtons = (movie, thumbsContainer) => {
+    thumbsContainer.innerHTML=""
+    const thumbsUpButton = document.createElement("button")
+    const thumbsDownButton = document.createElement("button")
+    thumbsUpButton.setAttribute('id', 'thumbs-up-button')
+    thumbsDownButton.setAttribute('id', 'thumbs-down-button')
+    thumbsUpButton.innerHTML=`Thumbs Up: ${movie.thumbsUp || "0"}`
+    thumbsDownButton.innerHTML= `Thumbs Down: ${movie.thumbsDown || "0"}`
+    thumbsContainer.append(thumbsUpButton)
+    thumbsContainer.append(thumbsDownButton)
+}
+
 const createMovieDetailsHeader = (movie, container) => {
     const resultsTitle = document.createElement("h2")
     resultsTitle.setAttribute('id', 'movie-title')
@@ -24,16 +36,9 @@ const createMovieDetailsHeader = (movie, container) => {
     const thumbsContainer = document.createElement("container")
     thumbsContainer.classList.add('thumbs-container')
     container.append(thumbsContainer)
-    
-    const thumbsUpButton = document.createElement("button")
-    const thumbsDownButton = document.createElement("button")
-    thumbsUpButton.setAttribute('id', 'thumbs-up-button')
-    thumbsDownButton.setAttribute('id', 'thumbs-down-button')
-    thumbsUpButton.innerHTML='Thumbs Up: 0'
-    thumbsDownButton.innerHTML='Thumbs Down: 0'
-    thumbsContainer.append(thumbsUpButton)
-    thumbsContainer.append(thumbsDownButton)
 
+    drawThumbsButtons(movie, thumbsContainer);
+    
     const directorContainer = document.createElement("container")
     directorContainer.classList.add('director-container')
     container.append(directorContainer)
@@ -218,62 +223,74 @@ const createBody = () => {
 
 }
 
-    const foundMatchGetThumbs = (event) => {
-        const movie = event.detail;
-        const thumbsUpButton = document.getElementById("thumbs-up-button")
-        thumbsUpButton.innerHTML= `Thumbs Up: ${movie.thumbsUp}`
-        const thumbsDownButton = document.getElementById("thumbs-down-button")
-        thumbsDownButton.innerHTML= `Thumbs Down: ${movie.thumbsDown}`
-        createThumbsEvents(thumbsUpButton, thumbsDownButton, movie);
-    }
+const foundMatchGetThumbs = (event) => {
+    const movie = event.detail;
+    const thumbsUpButton = document.getElementById("thumbs-up-button")
+    thumbsUpButton.innerHTML= `Thumbs Up: ${movie.thumbsUp}`
+    const thumbsDownButton = document.getElementById("thumbs-down-button")
+    thumbsDownButton.innerHTML= `Thumbs Down: ${movie.thumbsDown}`
+    createThumbsEvents(thumbsUpButton, thumbsDownButton, movie);
+}
 
-    const createThumbsEvents = (thumbsUpButton, thumbsDownButton, movie) => {
-        thumbsUpButton.addEventListener("click", () => {
-            postMovieThumbsUpToLocal(movie)
-        });
-        thumbsDownButton.addEventListener("click", () => {
-            postMovieThumbsDownToLocal(movie)
-        });
-    }
+const createThumbsEvents = (thumbsUpButton, thumbsDownButton, movie) => {
+    thumbsUpButton.addEventListener("click", () => {
+        postMovieThumbsUpToLocal(movie)
+        .then(postMovie => {
+            const thumbsContainer = document.querySelector(".thumbs-container")
+            drawThumbsButtons(postMovie, thumbsContainer)
+            const fetchLocalForThumbs = new CustomEvent('fetchLocalForThumbs', { detail: postMovie });
+            document.dispatchEvent(fetchLocalForThumbs);
+        })
+    });
+    thumbsDownButton.addEventListener("click", () => {
+        postMovieThumbsDownToLocal(movie)
+        .then(postMovie => {
+            const thumbsContainer = document.querySelector(".thumbs-container")
+            drawThumbsButtons(postMovie, thumbsContainer)
+            const fetchLocalForThumbs = new CustomEvent('fetchLocalForThumbs', { detail: postMovie });
+            document.dispatchEvent(fetchLocalForThumbs);
+        })
+    });
+}
 
-    const shouldISaveMovie = async (movie) => {
-        const localList = await fetchMovieFromLocal();
-        let movieExists=false;
-        for (let index of localList){
-            if (index.imdbId === movie.imdbID){
-                console.log("I exist already");
-                movieExists=true;
-                const fetchLocalForThumbs = new CustomEvent('fetchLocalForThumbs', { detail: index });
-                document.dispatchEvent(fetchLocalForThumbs);
-            } else {
-                console.log("failed to find match");
-            }
+const shouldISaveMovie = async (movie) => {
+    const localList = await fetchMovieFromLocal();
+    let movieExists=false;
+    for (let index of localList){
+        if (index.imdbId === movie.imdbID){
+            console.log("I exist already");
+            movieExists=true;
+            const fetchLocalForThumbs = new CustomEvent('fetchLocalForThumbs', { detail: index });
+            document.dispatchEvent(fetchLocalForThumbs);
+        } else {
+            console.log("failed to find match");
         }
-        if(movieExists === false){
-            let titleResult = movie.Title;
-            let imdbIdResult = movie.imdbID;
-            let sentMovie = { "title": titleResult, "imdbId": imdbIdResult, "thumbsUp": 0, "thumbsDown": 0};
-            console.log(sentMovie)
-            postMovieToLocal(sentMovie)
-            .then(postedMovie => {
-                console.log("You posted" + postedMovie)
-                const fetchLocalForThumbs = new CustomEvent('fetchLocalForThumbs', { detail: postedMovie });
-                document.dispatchEvent(fetchLocalForThumbs);  
-            })
-        }
     }
-
-    const grabMovie= (event) => {
-        console.log("I grabbed " + event.detail)
-        const container = document.getElementById('combineDiv')
-        container.innerHTML="";
-        const movie = event.detail
-        createMovieDetails(movie, container)
-        shouldISaveMovie(movie)
+    if(movieExists === false){
+        let titleResult = movie.Title;
+        let imdbIdResult = movie.imdbID;
+        let sentMovie = { "title": titleResult, "imdbId": imdbIdResult, "thumbsUp": 0, "thumbsDown": 0};
+        console.log(sentMovie)
+        postMovieToLocal(sentMovie)
+        .then(postedMovie => {
+            console.log("You posted" + postedMovie)
+            const fetchLocalForThumbs = new CustomEvent('fetchLocalForThumbs', { detail: postedMovie });
+            document.dispatchEvent(fetchLocalForThumbs);  
+        })
     }
+}
 
-    document.addEventListener('fetchClickedMovie', grabMovie, true)
-    document.addEventListener('fetchLocalForThumbs', foundMatchGetThumbs, true)
+const grabMovie= (event) => {
+    console.log("I grabbed " + event.detail)
+    const container = document.getElementById('combineDiv')
+    container.innerHTML="";
+    const movie = event.detail
+    createMovieDetails(movie, container)
+    shouldISaveMovie(movie)
+}
+
+document.addEventListener('fetchClickedMovie', grabMovie, true)
+document.addEventListener('fetchLocalForThumbs', foundMatchGetThumbs, true)
 
 
 
