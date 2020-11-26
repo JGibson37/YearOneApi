@@ -228,28 +228,12 @@ const createBody = () => {
     }
 
     const createThumbsEvents = (thumbsUpButton, thumbsDownButton, movie) => {
-        console.log("Entered createThumbsEvents")
         thumbsUpButton.addEventListener("click", () => {
             postMovieThumbsUpToLocal(movie)
-            console.log("You added a click event");
         });
         thumbsDownButton.addEventListener("click", () => {
             postMovieThumbsDownToLocal(movie)
-            console.log("You added a click event");
         });
-    }
-
-    const checkLocalForMovie = async (movie) =>{
-        const movieList = await fetchMovieFromLocal();
-        console.log("Checking Local for:" + movieList)
-        for (let index of movieList){
-            if(index.imdbId === movie.imdbID){
-                const fetchLocalForThumbs = new CustomEvent('fetchLocalForThumbs', { detail: index });
-                document.dispatchEvent(fetchLocalForThumbs);
-            } else {
-                console.log("failed to find match");
-            }
-        }
     }
 
     const shouldISaveMovie = async (movie) => {
@@ -259,6 +243,10 @@ const createBody = () => {
             if (index.imdbId === movie.imdbID){
                 console.log("I exist already");
                 movieExists=true;
+                const fetchLocalForThumbs = new CustomEvent('fetchLocalForThumbs', { detail: index });
+                document.dispatchEvent(fetchLocalForThumbs);
+            } else {
+                console.log("failed to find match");
             }
         }
         if(movieExists === false){
@@ -266,7 +254,12 @@ const createBody = () => {
             let imdbIdResult = movie.imdbID;
             let sentMovie = { "title": titleResult, "imdbId": imdbIdResult, "thumbsUp": 0, "thumbsDown": 0};
             console.log(sentMovie)
-            postMovieToLocal(sentMovie);
+            postMovieToLocal(sentMovie)
+            .then(postedMovie => {
+                console.log("You posted" + postedMovie)
+                const fetchLocalForThumbs = new CustomEvent('fetchLocalForThumbs', { detail: postedMovie });
+                document.dispatchEvent(fetchLocalForThumbs);  
+            })
         }
     }
 
@@ -277,8 +270,6 @@ const createBody = () => {
         const movie = event.detail
         createMovieDetails(movie, container)
         shouldISaveMovie(movie)
-        checkLocalForMovie(movie)
-
     }
 
     document.addEventListener('fetchClickedMovie', grabMovie, true)
