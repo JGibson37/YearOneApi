@@ -15,8 +15,8 @@ const fetchMovieFromRemote = (search) => {
     {
       method: "GET",
       headers: {
-        "x-rapidapi-key": "af02123c16msh99467b35f3f43a0p11645ejsn2373f0b6b10a",
-        "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
+        "x-rapidapi-key": "",
+        "x-rapidapi-host": "",
       },
     })
     .then((response) => response.json())
@@ -36,8 +36,8 @@ const fetchMovieFromIDRemote = (search) => {
     {
       "method": "GET",
       "headers": {
-        "x-rapidapi-key": "af02123c16msh99467b35f3f43a0p11645ejsn2373f0b6b10a",
-        "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com"
+        "x-rapidapi-key": "",
+        "x-rapidapi-host": ""
       }
     })
     .then((response) => response.json())
