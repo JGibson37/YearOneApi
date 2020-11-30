@@ -12,12 +12,17 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+
 .director-container{
     display:grid;
     justify-content: center;
     align-content: center;
 }
 
+.director-H2 {
+    display:flex;
+    justify-content: center;
+}
 .description-container {
 
 }
